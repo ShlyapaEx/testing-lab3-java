@@ -4,13 +4,39 @@ import Book.Book;
 
 import static org.junit.Assert.*;
 
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public class BookCoAuthorSetterTest {
     Book test_book1 = new Book("authorNameOne", "authorSurnameOne", "TitleOne", 2001, 101);
     Book test_book2 = new Book("authorNameTwo", "authorSurnameTwo", "TitleTwo", 2002, 102);
     // Book test_book3 = new Book("authorNameThree", "authorSurnameThree",
     // "TitleThree", 2003, 103);
+
+    // @Before
+    // public void co_author_initialize() {
+    // test_book1.addCo_author(test_book2);
+    // }
+    private static String watchedLog = "";
+
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            watchedLog += description + " " + "failed!\n";
+            // System.out.println(watchedLog);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            watchedLog += description + " " + "success!\n";
+            // System.out.println(watchedLog);
+        }
+    };
 
     @Test
     public void add_valid_co_author_test() {
@@ -41,5 +67,10 @@ public class BookCoAuthorSetterTest {
     @Test(expected = IllegalArgumentException.class)
     public void delete_not_existent_co_author_test() {
         test_book2.removeCo_author("Good Man");
+    }
+
+    @AfterClass
+    public static void print_log() {
+        System.out.println(watchedLog);
     }
 }

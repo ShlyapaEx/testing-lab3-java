@@ -4,9 +4,30 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import Book.Book;
+import org.junit.Test;
+import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public class BookConstructorTest {
     Book test_book = new Book("authorName", "authorSurname", "Title", 2001, 100);
+    private static String watchedLog = "";
+
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            watchedLog += description + " " + "failed!\n";
+            // System.out.println(watchedLog);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            watchedLog += description + " " + "success!\n";
+            // System.out.println(watchedLog);
+        }
+    };
 
     @Test(expected = NullPointerException.class)
     public void null_first_name_test() {
@@ -48,4 +69,8 @@ public class BookConstructorTest {
         assertTrue(test_book.getSold_count() == 100);
     }
 
+    @AfterClass
+    public static void print_log() {
+        System.out.println(watchedLog);
+    }
 }

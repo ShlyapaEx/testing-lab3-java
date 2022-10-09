@@ -5,9 +5,30 @@ import Exceptions.StringTooLongException;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public class BookFirstNameSetterTest {
     Book test_book = new Book("authorName", "authorSurname", "Title", 2001, 100);
+
+    private static String watchedLog = "";
+
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            watchedLog += description + " " + "failed!\n";
+            // System.out.println(watchedLog);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            watchedLog += description + " " + "success!\n";
+            // System.out.println(watchedLog);
+        }
+    };
 
     @Test(expected = NullPointerException.class)
     public void set_null_first_name_test() {
@@ -38,5 +59,10 @@ public class BookFirstNameSetterTest {
     public void set_ten_letters_first_name_test() {
         test_book.setAuthor_firstname("asdfzxcvgb");
         assertTrue(test_book.getAuthor_firstname().equals("asdfzxcvgb"));
+    }
+
+    @AfterClass
+    public static void print_log() {
+        System.out.println(watchedLog);
     }
 }

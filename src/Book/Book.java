@@ -15,8 +15,6 @@ public class Book {
     private ArrayList<String> co_authors;
 
     public Book(String author_surname, String author_firstname, String title, int release_year, int sold_count) {
-        // ,
-        // Set<String> co_authors) {
 
         // Фамилия автора
         name_ok(author_surname);
@@ -170,6 +168,18 @@ public class Book {
         if (year > 2100) {
             throw new IllegalArgumentException("Wrong year");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " author_surname='" + getAuthor_surname() + "'" +
+                ", author_firstname='" + getAuthor_firstname() + "'" +
+                ", title='" + getTitle() + "'" +
+                ", release_year='" + getRelease_year() + "'" +
+                ", sold_count='" + getSold_count() + "'" +
+                ", co_authors='" + getCo_authors() + "'" +
+                "}";
     }
 
     // Метод, проверяющий коллекцию на правильность
