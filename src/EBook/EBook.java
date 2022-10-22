@@ -46,7 +46,7 @@ public class EBook extends Book {
     @Override
     public String toString() {
         return "{" +
-                " file_format='" + getFile_format() + "'" +
+                " file_format=fdsfs'" + getFile_format() + "'" +
                 "}";
     }
 
