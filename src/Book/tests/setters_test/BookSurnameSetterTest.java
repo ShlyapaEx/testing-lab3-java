@@ -59,7 +59,6 @@ public class BookSurnameSetterTest {
     public void set_ten_letters_surname_test() {
         test_book.setAuthor_surname("asdfzxcvgb");
         assertTrue(test_book.getAuthor_surname().equals("asdfzxcvgb"));
-        fail();
     }
 
     @AfterClass

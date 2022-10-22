@@ -14,13 +14,6 @@ import org.junit.runner.Description;
 public class BookCoAuthorSetterTest {
     Book test_book1 = new Book("authorNameOne", "authorSurnameOne", "TitleOne", 2001, 101);
     Book test_book2 = new Book("authorNameTwo", "authorSurnameTwo", "TitleTwo", 2002, 102);
-    // Book test_book3 = new Book("authorNameThree", "authorSurnameThree",
-    // "TitleThree", 2003, 103);
-
-    // @Before
-    // public void co_author_initialize() {
-    // test_book1.addCo_author(test_book2);
-    // }
     private static String watchedLog = "";
 
     @Rule

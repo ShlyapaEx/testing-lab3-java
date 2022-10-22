@@ -38,11 +38,6 @@ public class Book {
 
         // Соавторы
         this.co_authors = new ArrayList<>();
-        // if (co_authors != null) {
-        // set_ok(co_authors);
-        // }
-        // this.co_authors = co_authors;
-
     }
 
     // Метод, возвращающий фамилию автора
@@ -104,12 +99,6 @@ public class Book {
         number_ok(sold_count);
         this.sold_count = sold_count;
     }
-
-    // Метод, перезаписывающий список соавторов на новый
-    // public void setCo_authors(Set<String> co_authors) {
-    // set_ok(co_authors);
-    // this.co_authors = co_authors;
-    // }
 
     // Метод, добавляющий соавтора, который является автором другой книги
     public void addCo_author(Book book) {
@@ -181,13 +170,4 @@ public class Book {
                 ", co_authors='" + getCo_authors() + "'" +
                 "}";
     }
-
-    // Метод, проверяющий коллекцию на правильность
-    // private static void set_ok(Set<String> checked_set) {
-    // Iterator<String> itemsIterator = checked_set.iterator();
-    // while (itemsIterator.hasNext()) {
-    // String checked_item_from_set = itemsIterator.next().toString();
-    // string_ok(checked_item_from_set);
-    // }
-    // }
 }

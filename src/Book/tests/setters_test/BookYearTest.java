@@ -55,7 +55,6 @@ public class BookYearTest {
     public void set_twenty_twenty_two_year_test() {
         test_book.setRelease_year(2022);
         assertTrue(test_book.getRelease_year() == 2022);
-        fail();
     }
 
     // @Test(expected = Error.class)

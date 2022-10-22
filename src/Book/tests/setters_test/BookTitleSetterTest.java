@@ -53,7 +53,6 @@ public class BookTitleSetterTest {
     public void set_letters_numbers_title_test() {
         test_book.setTitle("asdfzxcvgb 123");
         assertTrue(test_book.getTitle().equals("asdfzxcvgb 123"));
-        fail();
     }
 
     @AfterClass
