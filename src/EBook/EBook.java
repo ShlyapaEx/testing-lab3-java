@@ -1,8 +1,8 @@
 package EBook;
 
-import java.util.Objects;
-
 import Book.Book;
+import Config.Config;
+import Exceptions.WrongFileTypeException;
 
 public class EBook extends Book {
 
@@ -11,7 +11,8 @@ public class EBook extends Book {
     public EBook(String author_surname, String author_firstname, String title, int release_year, int sold_count,
             String file_format) {
         super(author_surname, author_firstname, title, release_year, sold_count);
-        this.file_format = file_format;
+        format_ok(file_format.trim());
+        this.file_format = file_format.trim();
     }
 
     public String getFile_format() {
@@ -19,34 +20,20 @@ public class EBook extends Book {
     }
 
     public void setFile_format(String file_format) {
-        this.file_format = file_format;
+        format_ok(file_format.trim());
+        this.file_format = file_format.trim();
     }
 
-    public EBook file_format(String file_format) {
-        setFile_format(file_format);
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof EBook)) {
-            return false;
+    private static void format_ok(String file_format) {
+        if (!Config.allowed_formats.contains(file_format.trim())) {
+            throw new WrongFileTypeException("File format '" + file_format + "' is not allowed!");
         }
-        EBook EBook = (EBook) o;
-        return Objects.equals(file_format, EBook.file_format);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(file_format);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " file_format=fdsfs'" + getFile_format() + "'" +
+                " file_format='" + getFile_format() + "'" +
                 "}";
     }
 
