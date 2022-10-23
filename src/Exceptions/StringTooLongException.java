@@ -7,4 +7,8 @@ public class StringTooLongException extends RuntimeException {
 
     public StringTooLongException() {
     }
+
+    public StringTooLongException(String string) {
+        super(string);
+    }
 }
