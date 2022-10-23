@@ -54,10 +54,11 @@ public class BookConstructorTest {
         Book zero_symbols_surname_book = new Book("authorName", "", "Title", 2001, 100);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void zero_symbols_title_test() {
-        Book zero_symbols_title_book = new Book("authorName", "Surname", "", 2001, 100);
-    }
+    // @Test(expected = IllegalArgumentException.class)
+    // public void zero_symbols_title_test() {
+    // Book zero_symbols_title_book = new Book("authorName", "Surname", "", 2001,
+    // 100);
+    // }
 
     @Test
     public void all_fields_constructor_book_test() {

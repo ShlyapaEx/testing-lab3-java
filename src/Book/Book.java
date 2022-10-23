@@ -100,6 +100,7 @@ public class Book {
         this.sold_count = sold_count;
     }
 
+    // TODO: Запрет на добавление самого себя в соавторы
     // Метод, добавляющий соавтора, который является автором другой книги
     public void addCo_author(Book book) {
         String co_author_full_name = book.getAuthor_surname() + " " + book.getAuthor_firstname();
@@ -136,9 +137,10 @@ public class Book {
     // Метод, проверяющий строку на правильность
     private static void string_ok(String checked_string) {
         length_ok(checked_string);
-        if (!checked_string.matches("[а-яА-ЯёЁa-zA-Z0-9 ]+$")) {
-            throw new IllegalArgumentException("Only numbers, spaces, cyrillic and latin letters allowed");
-        }
+        // if (!checked_string.matches("[а-яА-ЯёЁa-zA-Z0-9\\s!@#$&()-`.+,\\]+$")) {
+        // throw new IllegalArgumentException("Only numbers, spaces, cyrillic and latin
+        // letters allowed");
+        // }
     }
 
     // Метод, проверяющий число на правильность
