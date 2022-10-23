@@ -3,6 +3,7 @@ package Library;
 import java.util.ArrayList;
 
 import Book.Book;
+import Exceptions.StringTooLongException;
 
 public class Library {
     private Integer library_number;
@@ -17,15 +18,63 @@ public class Library {
         this.library_number = library_number;
 
         // Город, в котором расположена библиотека
-        city_and_street_ok(library_city);
-        this.library_city = library_city;
+        city_ok(library_city.trim());
+        this.library_city = library_city.trim();
 
         // Улица, на которой расположена библиотека
-        city_and_street_ok(library_street);
-        this.library_street = library_street;
+        street_ok(library_street.trim());
+        this.library_street = library_street.trim();
 
         // Список книг, которые есть в библиотеке
         this.books = new ArrayList<Book>();
+    }
+
+    public Integer getLibrary_number() {
+
+        return this.library_number;
+    }
+
+    public String getLibrary_city() {
+        return this.library_city;
+    }
+
+    public String getLibrary_street() {
+        return this.library_street;
+    }
+
+    public ArrayList<Book> getBooks() {
+        return this.books;
+    }
+
+    public void setLibrary_number(Integer library_number) {
+        number_ok(library_number);
+        this.library_number = library_number;
+    }
+
+    public void setLibrary_city(String library_city) {
+        city_ok(library_city.trim());
+        this.library_city = library_city.trim();
+    }
+
+    public void setLibrary_street(String library_street) {
+        street_ok(library_street.trim());
+        this.library_street = library_street.trim();
+    }
+
+    public void addBook(Book book) {
+        if (book == null) {
+            throw new NullPointerException("Book can't be null!");
+        }
+        this.books.add(book);
+
+    }
+
+    public void removeBook(Book book) {
+        if (this.books.contains(book)) {
+            this.books.remove(book);
+        } else {
+            throw new IllegalArgumentException("This book doesn't exist in this library!");
+        }
     }
 
     // Метод, проверяющий число на правильность
@@ -35,52 +84,33 @@ public class Library {
         }
     }
 
+    // Метод, проверяющий длину строки
+    private static void length_ok(String checked_string) {
+        if (checked_string.length() > 128) {
+            throw new StringTooLongException("String '" + checked_string + "' is too long!");
+        }
+    }
+
+    private static void city_ok(String libraty_city) {
+        if (!string_check(libraty_city)) {
+            throw new IllegalArgumentException("Library city '" + libraty_city + "' is not acceptable!");
+        }
+    }
+
+    private static void street_ok(String library_street) {
+        if (!string_check(library_street)) {
+            throw new IllegalArgumentException("Library street '" + library_street + "' is not acceptable!");
+        }
+    }
+
     // Метод, проверяющий город и улицу на правильность
-    private static void city_and_street_ok(String city_or_street) {
-        if (!city_or_street.matches("[а-яА-Яa-zA-Z0-9]+(?:[\s-][а-яА-Яa-zA-Z0-9]+)*$")) {
-            throw new IllegalArgumentException("Illegal city or street name!");
+    private static boolean string_check(String string) {
+        length_ok(string);
+        if (!string.matches("[а-яА-Яa-zA-Z0-9]+(?:[\s-][а-яА-Яa-zA-Z0-9]+)*$")) {
+            return false;
         }
+        return true;
 
-    }
-
-    public Integer getLibrary_number() {
-        return this.library_number;
-    }
-
-    public void setLibrary_number(Integer library_number) {
-        this.library_number = library_number;
-    }
-
-    public String getLibrary_city() {
-        return this.library_city;
-    }
-
-    public void setLibrary_city(String library_city) {
-        this.library_city = library_city;
-    }
-
-    public String getLibrary_street() {
-        return this.library_street;
-    }
-
-    public void setLibrary_street(String library_street) {
-        this.library_street = library_street;
-    }
-
-    public ArrayList<Book> getBooks() {
-        return this.books;
-    }
-
-    public void addBook(Book book) {
-        this.books.add(book);
-    }
-
-    public void removeBook(Book book) {
-        if (this.books.contains(book)) {
-            this.books.remove(book);
-        } else {
-            throw new IllegalArgumentException("This book doesn't exist in this library!");
-        }
     }
 
     @Override
