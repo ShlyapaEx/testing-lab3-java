@@ -3,16 +3,18 @@ package IntegrationTests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import Book.Book;
 import Library.Library;
+import org.junit.AfterClass;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 
 public class LibraryBookTest {
+    private static String watchedLog = "";
+
     Library null_library;
     Book null_book;
     static Library test_library = new Library(1, "City", "Street");
@@ -24,6 +26,20 @@ public class LibraryBookTest {
     // 2022, 1337);
     // static Book test_book5 = new Book("Rozetka", "Petrovich", "ElectroCUTE <3",
     // 1990, 444);
+    @Rule
+    public TestWatcher watchman = new TestWatcher() {
+        @Override
+        protected void failed(Throwable e, Description description) {
+            watchedLog += description + " " + "failed!\n";
+            // System.out.println(watchedLog);
+        }
+
+        @Override
+        protected void succeeded(Description description) {
+            watchedLog += description + " " + "success!\n";
+            // System.out.println(watchedLog);
+        }
+    };
 
     @BeforeClass
     public static void test_init() {
@@ -76,5 +92,10 @@ public class LibraryBookTest {
     @Test(expected = IllegalArgumentException.class)
     public void remove_non_existent_book_test() {
         test_library.removeBook(test_book2);
+    }
+
+    @AfterClass
+    public static void print_log() {
+        System.out.println(watchedLog);
     }
 }

@@ -12,9 +12,22 @@ public class EBook extends Book {
 
     public EBook(String author_surname, String author_firstname, String title, int release_year, int sold_count,
             String file_format, Integer file_size) {
+
         super(author_surname, author_firstname, title, release_year, sold_count);
 
         // Формат файла электронной книги
+        format_ok(file_format.trim());
+        this.file_format = file_format.trim();
+
+        // Размер файла электронной книги
+        file_size_ok(file_size);
+        this.file_size = file_size;
+    }
+
+    public EBook(Book book, String file_format, Integer file_size) {
+        super(book.getAuthor_surname(), book.getAuthor_firstname(), book.getTitle(), book.getRelease_year(),
+                (int) book.getSold_count());
+
         format_ok(file_format.trim());
         this.file_format = file_format.trim();
 
