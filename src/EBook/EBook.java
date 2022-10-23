@@ -48,6 +48,9 @@ public class EBook extends Book {
     }
 
     private static void file_size_ok(Integer file_size) {
+        if (file_size < 0) {
+            throw new IllegalArgumentException("File size can't be negative!");
+        }
         if (file_size > Config.max_file_size) {
             throw new MaxFileSizeExtendedException();
         }
