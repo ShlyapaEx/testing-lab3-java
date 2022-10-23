@@ -40,6 +40,11 @@ public class LibrarySettersTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void set_empty_city_test() {
+        test_library1.setLibrary_city("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void set_special_symbols_only_city() {
         test_library1.setLibrary_city("(!@#");
     }
