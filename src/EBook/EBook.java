@@ -79,7 +79,7 @@ public class EBook extends Book {
                 ", sold_count='" + getSold_count() + "'" +
                 ", co_authors='" + getCo_authors() + "'" +
                 " file_format='" + getFile_format() + "'" +
-                "}";
+                " }";
     }
 
 }

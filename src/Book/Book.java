@@ -170,6 +170,6 @@ public class Book {
                 ", release_year='" + getRelease_year() + "'" +
                 ", sold_count='" + getSold_count() + "'" +
                 ", co_authors='" + getCo_authors() + "'" +
-                "}";
+                " }";
     }
 }
