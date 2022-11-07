@@ -136,7 +136,7 @@ public class SystemTest {
         assertFalse(test_library.getBooks().contains(test_ebook));
     }
 
-    @Test(timeout = 500)
+    @Test(timeout = 1000)
     public void performance_test() {
 
         System.out.println("Starting performance test...");
