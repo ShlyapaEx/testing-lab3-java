@@ -5,24 +5,29 @@ import java.util.ArrayList;
 import Exceptions.StringTooLongException;
 import Exceptions.NumberTooLongException;
 
-public class Book {
-    private String author_surname;
-    private String author_firstname;
+import Human.Human;
 
+public class Book {
+    // private String author_surname;
+    // private String author_firstname;
+    private Human author;
     private String title;
     private int release_year;
     private long sold_count;
-    private ArrayList<String> co_authors;
+    private ArrayList<Human> co_authors;
 
     public Book(String author_surname, String author_firstname, String title, int release_year, int sold_count) {
 
         // Фамилия автора
-        name_ok(author_surname);
-        this.author_surname = author_surname;
+        // name_ok(author_surname);
+        // this.author_surname = author_surname;
 
-        // Имя автора
-        name_ok(author_firstname);
-        this.author_firstname = author_firstname;
+        // // Имя автора
+        // name_ok(author_firstname);
+        // this.author_firstname = author_firstname;
+
+        // Автор книги
+        this.author = new Human(author_firstname, author_surname);
 
         // Название книги
         string_ok(title.trim());
@@ -40,14 +45,22 @@ public class Book {
         this.co_authors = new ArrayList<>();
     }
 
+    // Метод, возвращающий автора полностью
+    public Human getAuthor() {
+        return this.author;
+    }
+
     // Метод, возвращающий фамилию автора
     public String getAuthor_surname() {
-        return this.author_surname;
+        // return this.author_surname;
+        return this.author.getHuman_surname();
+
     }
 
     // Метод, возвращающий имя автора
     public String getAuthor_firstname() {
-        return this.author_firstname;
+        // return this.author_firstname;
+        return this.author.getHuman_name();
     }
 
     // Метод, возвращающий название книги
@@ -66,20 +79,22 @@ public class Book {
     }
 
     // Метод, возвращающий список соавторов
-    public ArrayList<String> getCo_authors() {
+    public ArrayList<Human> getCo_authors() {
         return this.co_authors;
     }
 
     // Метод, устанавливающий фамилию автора
     public void setAuthor_surname(String author_surname) {
-        name_ok(author_surname.trim());
-        this.author_surname = author_surname.trim();
+        // name_ok(author_surname.trim());
+        // this.author_surname = author_surname.trim();
+        this.author.setHuman_surname(author_surname);
     }
 
     // Метод, устанавливающий имя автора
     public void setAuthor_firstname(String author_firstname) {
-        name_ok(author_firstname.trim());
-        this.author_firstname = author_firstname.trim();
+        // name_ok(author_firstname.trim());
+        // this.author_firstname = author_firstname.trim();
+        this.author.setHuman_name(author_firstname);
     }
 
     // Метод, устанавливающий название
@@ -100,21 +115,28 @@ public class Book {
         this.sold_count = sold_count;
     }
 
-    // TODO: Запрет на добавление самого себя в соавторы
     // Метод, добавляющий соавтора, который является автором другой книги
     public void addCo_author(Book book) {
-        String co_author_full_name = book.getAuthor_surname() + " " + book.getAuthor_firstname();
-        if (!this.co_authors.contains(co_author_full_name.trim())) {
-            this.co_authors.add(co_author_full_name.trim());
+
+        // Проверка на то, что автор не может являться соавтором своей книги
+        if (this.author.getHuman_surname()
+                .equals(book.getAuthor_surname()) && this.getAuthor_firstname().equals(book.getAuthor_firstname())) {
+            throw new IllegalArgumentException("You can't make co_author from author of a book");
+        }
+
+        // Проверка на существование соавтора перед добавлением
+        // String co_author_full_name = book.getAuthor_surname() + " " +
+        // book.getAuthor_firstname();
+        if (!this.co_authors.contains(book.getAuthor())) {
+            this.co_authors.add(book.getAuthor());
         } else
             throw new IllegalArgumentException("This co_author already exists in this book");
     }
 
     // Метод, удаляющий соавтора из списка соавторов
-    public void removeCo_author(String co_author) {
-        string_ok(co_author.trim());
-        if (this.co_authors.contains(co_author.trim())) {
-            this.co_authors.remove(co_author.trim());
+    public void removeCo_author(Human co_author) {
+        if (this.co_authors.contains(co_author)) {
+            this.co_authors.remove(co_author);
         } else {
             throw new IllegalArgumentException("This co_author doesn't exist in this book");
         }
@@ -125,13 +147,6 @@ public class Book {
         if (checked_string.length() > 128) {
             throw new StringTooLongException();
         }
-    }
-
-    // Метод, проверяющий имя на правильность
-    private static void name_ok(String checked_name) {
-        length_ok(checked_name);
-        if (!checked_name.matches("[а-яА-ЯёЁa-zA-Z]+$"))
-            throw new IllegalArgumentException("Only cyrillic and latin letters allowed");
     }
 
     // Метод, проверяющий строку на правильность

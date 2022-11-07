@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -61,18 +62,18 @@ public class SystemTest {
 
         // Тестирование работы функции удаления соавторов //
         // Для обычной книги
-        test_book1.removeCo_author("Surname FirstName");
-        test_book1.removeCo_author("authorNameTwo authorSurnameTwo");
-        assertThrows(IllegalArgumentException.class, () -> test_book1.removeCo_author("Surname FirstName"));
+        test_book1.removeCo_author(test_book1.getAuthor());
+        test_book1.removeCo_author(test_book2.getAuthor());
+        assertThrows(IllegalArgumentException.class, () -> test_book1.removeCo_author(test_book1.getAuthor()));
 
-        assertFalse(test_book1.getCo_authors().contains("Surname FirstName"));
-        assertFalse(test_book1.getCo_authors().contains("authorNameTwo authorSurnameTwo"));
+        assertFalse(test_book1.getCo_authors().contains(test_book1.getAuthor()));
+        assertFalse(test_book1.getCo_authors().contains(test_book2.getAuthor()));
 
         // Для электронной книги
-        test_ebook.removeCo_author("authorNameOne authorSurnameOne");
-        test_ebook.removeCo_author("authorNameTwo authorSurnameTwo");
+        test_ebook.removeCo_author(test_book1.getAuthor());
+        test_ebook.removeCo_author(test_book2.getAuthor());
         assertThrows(IllegalArgumentException.class,
-                () -> test_ebook.removeCo_author("authorNameOne authorSurnameOne"));
+                () -> test_ebook.removeCo_author(test_book1.getAuthor()));
 
         assertFalse(test_ebook.getCo_authors().contains("authorNameOne authorSurnameOne"));
         assertFalse(test_ebook.getCo_authors().contains("authorNameTwo authorSurnameTwo"));
